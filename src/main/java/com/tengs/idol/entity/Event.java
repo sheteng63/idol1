@@ -21,25 +21,30 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("idol_user")
-public class User implements Serializable {
+@TableName("idol_event")
+public class Event implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 微信昵称
+     * 活动名称
      */
-    private String nickName;
+    private String eventName;
 
     /**
-     * openid
+     * 创建人
      */
-    private String openId;
+    private String createUser;
 
     /**
-     * 头像链接
+     * 活动描述
      */
-    private String avatarUrl;
+    private String eventDescrible;
+
+    /**
+     * order id
+     */
+    private String orderId;
 
     /**
      * 创建时间
@@ -47,24 +52,27 @@ public class User implements Serializable {
     private Date createTime;
 
     /**
-     * 上次登录
+     * 修改时间
      */
-    private Date lastLoginTime;
+    private Date modifyTime;
 
     /**
-     * 用户状态
+     * 修改人
      */
-    private String isActive;
+    private String modifyUserId;
 
     /**
-     * 性别
+     * 状态
      */
-    private String sex;
+    private String status;
 
     /**
-     * id
+     * 活动时间
      */
+    private String time;
+
     @TableId("id")
     private String id;
+
 
 }

@@ -1,8 +1,7 @@
 package com.tengs.idol.mapper;
 
-import com.tengs.idol.entity.User;
+import com.tengs.idol.entity.Event;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.tengs.idol.model.request.LoginRequest;
 
 /**
  * <p>
@@ -12,5 +11,6 @@ import com.tengs.idol.model.request.LoginRequest;
  * @author jobob
  * @since 2019-10-13
  */
-public interface UserMapper extends BaseMapper<User> {
+public interface EventMapper extends BaseMapper<Event> {
+
 }
