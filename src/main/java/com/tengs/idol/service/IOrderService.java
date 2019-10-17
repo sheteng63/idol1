@@ -2,6 +2,7 @@ package com.tengs.idol.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tengs.idol.core.exception.BzException;
 import com.tengs.idol.entity.Order;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tengs.idol.entity.User;
@@ -22,4 +23,6 @@ public interface IOrderService extends IService<Order> {
     OrderDetRes getOrder(String orderId);
 
     IPage<Order> getOrderList(User user, Page<Order> page);
+
+    void accept(String orderId, User user,String status) throws BzException;
 }

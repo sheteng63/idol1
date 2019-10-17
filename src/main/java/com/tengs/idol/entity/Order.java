@@ -73,7 +73,7 @@ public class Order implements Serializable {
     private String acceptMark;
 
     /**
-     * 状态
+     * 状态 0.创建  1.接受 2.拒绝
      */
     private String status;
 

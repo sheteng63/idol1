@@ -4,6 +4,7 @@ package com.tengs.idol.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.databind.ser.Serializers;
+import com.tengs.idol.core.exception.BzException;
 import com.tengs.idol.core.util.JsonUtils;
 import com.tengs.idol.entity.Order;
 import com.tengs.idol.entity.User;
@@ -71,6 +72,18 @@ public class OrderController {
         IPage<Order> list = iOrderService.getOrderList(user, pageOrder);
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setData(list.getRecords());
+        return baseResponse;
+    }
+
+    @PostMapping("accept")
+    public BaseResponse accept(@RequestBody HashMap<String, String> map, HttpServletRequest request) throws BzException {
+        User user = (User) request.getAttribute("user");
+        String orderId = map.get("orderId");
+        String status = map.get("status");
+        logger.info("order/accept user :{}", JsonUtils.objectToJson(user));
+        iOrderService.accept(orderId,user,status);
+
+        BaseResponse baseResponse = new BaseResponse();
         return baseResponse;
     }
 

@@ -3,6 +3,8 @@ package com.tengs.idol.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tengs.idol.core.constant.BzConstant;
+import com.tengs.idol.core.exception.BzException;
 import com.tengs.idol.core.util.DateUtil;
 import com.tengs.idol.core.util.UniCodeUtil;
 import com.tengs.idol.entity.Order;
@@ -73,5 +75,20 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         wrapper.orderByDesc("start_date_time");
         IPage<Order> orderIPage = orderMapper.selectPage(page, wrapper);
         return orderIPage;
+    }
+
+    @Override
+    public void accept(String orderId, User user,String status) throws BzException {
+        QueryWrapper<Order> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", orderId);
+        Order order = orderMapper.selectOne(wrapper);
+        if (order.getAcceptUserId() != null){
+            throw  new BzException(BzConstant.QUERY_ERROR,"已经不能接受啦");
+        }
+        order.setAcceptUserId(user.getId());
+        order.setAcceptUserAvatar(user.getAvatarUrl());
+        order.setStatus(status);
+        orderMapper.updateById(order);
+        //todo 发订阅消息给用户
     }
 }
