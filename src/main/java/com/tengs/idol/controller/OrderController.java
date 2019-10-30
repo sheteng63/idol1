@@ -55,7 +55,7 @@ public class OrderController {
 
     @PostMapping("getOrder")
     public BaseResponse getOrder(@RequestBody HashMap<String, String> map) {
-        String orderId = map.get("orderId");
+        String orderId = map.get("orderId").trim();
         OrderDetRes order = iOrderService.getOrder(orderId);
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.setData(order);
@@ -78,11 +78,10 @@ public class OrderController {
     @PostMapping("accept")
     public BaseResponse accept(@RequestBody HashMap<String, String> map, HttpServletRequest request) throws BzException {
         User user = (User) request.getAttribute("user");
-        String orderId = map.get("orderId");
-        String status = map.get("status");
+        String orderId = map.get("orderId").trim();
+        String status = map.get("status").trim();
         logger.info("order/accept user :{}", JsonUtils.objectToJson(user));
         iOrderService.accept(orderId,user,status);
-
         BaseResponse baseResponse = new BaseResponse();
         return baseResponse;
     }

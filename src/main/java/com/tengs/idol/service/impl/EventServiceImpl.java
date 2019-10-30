@@ -1,5 +1,6 @@
 package com.tengs.idol.service.impl;
 
+import com.alibaba.druid.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tengs.idol.core.exception.BzException;
 import com.tengs.idol.core.util.UniCodeUtil;
@@ -11,10 +12,8 @@ import com.tengs.idol.mapper.OrderMapper;
 import com.tengs.idol.model.request.EventReq;
 import com.tengs.idol.service.IEventService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import jodd.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -44,6 +43,9 @@ public class EventServiceImpl extends ServiceImpl<EventMapper, Event> implements
         Order order = orderMapper.selectOne(wrapper);
         if (order == null) {
             throw new BzException("000002", "订单不存在");
+        }
+        if (StringUtils.equals(order.getStatus(), "2")) {
+            throw new BzException("000002", "拒绝之后不能修改");
         }
         Event event = new Event();
         event.setId(UniCodeUtil.createUUID());
@@ -77,7 +79,10 @@ public class EventServiceImpl extends ServiceImpl<EventMapper, Event> implements
         if (order == null) {
             throw new BzException("000002", "订单不存在");
         }
-        if (!StringUtil.equals(order.getAcceptUserId(), user.getId()) && !StringUtil.equals(order.getApplyUserId(), user.getId())) {
+        if (StringUtils.equals(order.getStatus(), "2")) {
+            throw new BzException("000002", "拒绝之后不能修改");
+        }
+        if (!StringUtils.equals(order.getAcceptUserId(), user.getId()) && !StringUtils.equals(order.getApplyUserId(), user.getId())) {
             throw new BzException("000003", "无权限");
         }
         QueryWrapper<Event> wrapper1 = new QueryWrapper<>();

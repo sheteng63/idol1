@@ -45,7 +45,7 @@ public class EventController {
 
     @PostMapping("getList")
     public BaseResponse getList(@RequestBody HashMap<String, String> map)throws BzException{
-        String orderId = map.get("orderId");
+        String orderId = map.get("orderId").trim();
         logger.info("order/getList :{}", orderId);
         List<Event> list = iEventService.getList(orderId);
         BaseResponse response = new BaseResponse();
@@ -55,7 +55,7 @@ public class EventController {
 
     @PostMapping("getEvent")
     public BaseResponse getEvent(@RequestBody HashMap<String, String> map)throws BzException{
-        String eventId = map.get("eventId");
+        String eventId = map.get("eventId").trim();
         logger.info("order/get :{}", eventId);
         Event event = iEventService.getEvent(eventId);
         BaseResponse response = new BaseResponse();
