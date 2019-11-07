@@ -36,7 +36,7 @@ public class EventController {
 
     @PostMapping("create")
     public BaseResponse create(@RequestBody EventReq req, HttpServletRequest request) throws BzException {
-        logger.info("order/create :{}", JsonUtils.objectToJson(req));
+        logger.info("event/create :{}", JsonUtils.objectToJson(req));
         User user = (User) request.getAttribute("user");
         iEventService.create(req,user);
         BaseResponse response = new BaseResponse();
@@ -46,7 +46,7 @@ public class EventController {
     @PostMapping("getList")
     public BaseResponse getList(@RequestBody HashMap<String, String> map)throws BzException{
         String orderId = map.get("orderId").trim();
-        logger.info("order/getList :{}", orderId);
+        logger.info("event/getList :{}", orderId);
         List<Event> list = iEventService.getList(orderId);
         BaseResponse response = new BaseResponse();
         response.setData(list);
@@ -56,7 +56,7 @@ public class EventController {
     @PostMapping("getEvent")
     public BaseResponse getEvent(@RequestBody HashMap<String, String> map)throws BzException{
         String eventId = map.get("eventId").trim();
-        logger.info("order/get :{}", eventId);
+        logger.info("event/get :{}", eventId);
         Event event = iEventService.getEvent(eventId);
         BaseResponse response = new BaseResponse();
         response.setData(event);
@@ -65,7 +65,7 @@ public class EventController {
 
     @PostMapping("update")
     public BaseResponse update(@RequestBody EventReq req, HttpServletRequest request)throws BzException{
-        logger.info("order/update :{}", JsonUtils.objectToJson(req));
+        logger.info("event/update :{}", JsonUtils.objectToJson(req));
         User user = (User) request.getAttribute("user");
         iEventService.update(req,user);
         BaseResponse response = new BaseResponse();

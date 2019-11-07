@@ -82,9 +82,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         QueryWrapper<Order> wrapper = new QueryWrapper<>();
         wrapper.eq("id", orderId);
         Order order = orderMapper.selectOne(wrapper);
-//        if (order.getAcceptUserId() != null){
-//            throw  new BzException(BzConstant.QUERY_ERROR,"已经不能接受啦");
-//        }
+        if (order.getAcceptUserId() != null){
+            throw  new BzException(BzConstant.QUERY_ERROR,"已经不能接受啦");
+        }
         order.setAcceptUserId(user.getId());
         order.setAcceptUserAvatar(user.getAvatarUrl());
         order.setStatus(status);

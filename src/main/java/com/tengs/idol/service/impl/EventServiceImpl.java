@@ -39,7 +39,6 @@ public class EventServiceImpl extends ServiceImpl<EventMapper, Event> implements
         String orderId = req.getOrderId();
         QueryWrapper<Order> wrapper = new QueryWrapper<>();
         wrapper.eq("id", orderId);
-        wrapper.eq("status", "0");
         Order order = orderMapper.selectOne(wrapper);
         if (order == null) {
             throw new BzException("000002", "订单不存在");
@@ -74,7 +73,6 @@ public class EventServiceImpl extends ServiceImpl<EventMapper, Event> implements
         String orderId = req.getOrderId();
         QueryWrapper<Order> wrapper = new QueryWrapper<>();
         wrapper.eq("id", orderId);
-        wrapper.eq("status", "0");
         Order order = orderMapper.selectOne(wrapper);
         if (order == null) {
             throw new BzException("000002", "订单不存在");
